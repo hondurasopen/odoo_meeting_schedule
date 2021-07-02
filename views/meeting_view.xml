@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+<record id="gsie_meeting_calendar_view" model="ir.ui.view">
+<field name="name">gsie.meeting.calendar.view</field>
+<field name="model">gsie.meeting</field>
+<field name="priority" eval="2"/>
+<field name="arch" type="xml">
+<calendar js_class="attendee_calendar" string="Meetings" date_start="date" date_stop="end_date" 
+    mode="month" color="responsable_id" >
+    <field name="name"/>
+    <field name="responsable_id"/>
+</calendar>
+</field>
+</record>
+
+
+<record id="gsie_meeting_form_view" model="ir.ui.view">
+<field name="name">gsie.meeting.form.view</field>
+<field name="model">gsie.meeting</field>
+<field name="arch" type="xml">
+<form string="Debits">
+<header>
+    <field name="state" widget="statusbar"/>
+</header>
+<sheet>
+    <strong><separator style="color:#009C96;" string="Agenda de Reunión"/></strong>
+    <h1>
+        <field name="name" attrs="{'readonly': [('state','!=','draft')]}" required="1"/>
+    </h1>
+    <group>
+        <group>
+        <field name="date" attrs="{'readonly': [('state','!=','draft')]}" required="1"/>
+        <field name="location"  attrs="{'readonly': [('state','!=','draft')]}"/>
+        <field name="meeting_objective"  attrs="{'readonly': [('state','!=','draft')]}" required="1"/>
+    </group>
+    <group>
+        <field name="end_date" attrs="{'readonly': [('state','!=','draft')]}" required="1"/>
+        <field name="responsable_id" attrs="{'readonly': [('state','!=','draft')]}" options="{'no_create_edit': True}"/>
+        <field name="attendace_ids" attrs="{'readonly': [('state','!=','draft')]}" widget="many2many_tags"
+         options="{'no_create_edit': True}"/>
+    </group>
+    </group>
+    <notebook>
+        <page string="Agenda de reunión">
+            <field name="topic_ids" attrs="{'readonly': [('state','!=','draft')]}">
+                <tree editable="top">
+                    <field name="analytic_id" required="1" options="{'no_create': True}"/>
+                   <field name="topic" required="1" style="color:#009C96;"/>
+                   <field name="comments" style="color:#009C96;"/>
+                   <field name="responsable_id" options="{'no_create': True}" widget="many2one_avatar_user"/>
+                   <field name="start_date"/>
+                   <field name="days_number"/>
+                   <field name="status"/>
+                </tree>
+            </field>
+        </page>
+
+    </notebook>    
+    </sheet>
+     <div class="oe_chatter">
+          <field name="message_ids" widget="mail_thread"/>
+    </div>
+</form>
+</field>
+</record>
+
+
+<record model="ir.ui.view" id="gsie_meeting_view_tree">
+<field name="name">gsie.meeting.view.tree</field>
+<field name="model">gsie.meeting</field>
+<field name="arch" type="xml">
+<tree string="Meeting">
+    <field name="responsable_id" widget="many2one_avatar_user" optional="show"/>
+    <field name="date"/>
+    <field name="end_date" widget="remaining_days"/>
+    <field name="name" decoration-bf="1"/>
+    <field name="location" decoration-bf="2"/>
+    <field name="state" widget="badge" decoration-info="state == 'done'" decoration-warning="state == 'draft'"/>
+</tree>
+</field>
+</record>
+ 
+
+<record id="action_gsie_meeting" model="ir.actions.act_window">
+<field name="name">Gestión de Agenda</field>
+<field name="res_model">gsie.meeting</field>
+<field name="view_mode">tree,form,calendar</field>
+</record>  
+
+<menuitem action="action_gsie_meeting" id="menu_action_gsie_meeting" parent="menu_main_meeting_gsie_mgmt" sequence="10"/>
+
+</odoo>

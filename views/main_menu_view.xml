@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<menuitem id="menu_main_meeting_gsie" name="Meetings" web_icon="odoo_meeting_schedule,static/description/icon.png"/>
+<menuitem  id="menu_main_meeting_gsie_mgmt" name="Gestión de Agendas" parent="menu_main_meeting_gsie" sequence="10"/>
+
+</odoo>

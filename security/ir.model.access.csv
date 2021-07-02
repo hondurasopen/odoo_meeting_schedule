@@ -1,0 +1,5 @@
+model_id:id,group_id:id,id,name,perm_read,perm_write,perm_create,perm_unlink
+model_gsie_meeting,group_meeting_manager_gsie,access_gsie_meeting_manager,gsie.meeting,1,1,1,1
+model_gsie_meeting,group_meeting_user_gsie,access_gsie_meeting_user,gsie.meeting,1,0,0,0
+model_gsie_meeting_topic,group_meeting_manager_gsie,access_gsie_meeting_topic_manager,gsie.meeting.topic,1,1,1,1
+model_gsie_meeting_topic,group_meeting_user_gsie,access_gsie_meeting_topic_user,gsie.meeting.topic,1,0,0,0
